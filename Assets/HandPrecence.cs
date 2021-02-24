@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.XR;
 public class HandPrecence : MonoBehaviour
 {
-
+    public bool showController = false;
     public InputDeviceCharacteristics controllerCharacteristics;
     public List<GameObject> controllerPrefabs;
+    public GameObject handModelPrefab;
+
     private InputDevice targetDevice;
     private GameObject spawnedController;
+    private GameObject spawnedHandModel;
 
     //Testpush
     //Testpush 2
@@ -39,6 +42,8 @@ public class HandPrecence : MonoBehaviour
                 spawnedController = Instantiate(controllerPrefabs[0], transform);
             }
 
+            spawnedHandModel = Instantiate(handModelPrefab, transform);
+
         }
 
     }
@@ -47,17 +52,16 @@ public class HandPrecence : MonoBehaviour
     void Update()
     {
 
-        
-
-        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue) && primaryButtonValue)
-            Debug.Log("Pressing Primary Button");
-
-        if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
-            Debug.Log("Trigger pressed " + triggerValue);
-
-        
-        if (targetDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 primary2DAxisValue) && primary2DAxisValue != Vector2.zero)
-            Debug.Log("Primary Touchpad" + primary2DAxisValue);
+        if (showController)
+        {
+            spawnedHandModel.SetActive(false);
+            spawnedController.SetActive(true);
+        }
+        else
+        {
+            spawnedHandModel.SetActive(true);
+            spawnedController.SetActive(false);
+        }
 
         
     }
