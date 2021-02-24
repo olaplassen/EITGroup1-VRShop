@@ -448,7 +448,7 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 951512114746902978, guid: 718b6d6c58a606b4d82b946ebddcbebd,
+  m_ModelPrefab: {fileID: 6964902804475690388, guid: df01614065d73d442af52f19476360e8,
     type: 3}
   m_ModelTransform: {fileID: 0}
   m_AnimateModel: 0
@@ -713,7 +713,7 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 951512114746902978, guid: 718b6d6c58a606b4d82b946ebddcbebd,
+  m_ModelPrefab: {fileID: 6964902804475690388, guid: df01614065d73d442af52f19476360e8,
     type: 3}
   m_ModelTransform: {fileID: 0}
   m_AnimateModel: 0
@@ -828,49 +828,6 @@ Transform:
   - {fileID: 392005834}
   m_Father: {fileID: 1874606718}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1248113036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1248113038}
-  - component: {fileID: 1248113037}
-  m_Layer: 0
-  m_Name: Hand Precence
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1248113037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248113036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e95e51159b5486942bf7e9ecad2ae08d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1248113038
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248113036}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1435443153
 GameObject:
