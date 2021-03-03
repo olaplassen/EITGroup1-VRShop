@@ -7,7 +7,7 @@ public class XROffsetGrabInteractable : XRGrabInteractable
 {
     private Vector3 initialAttatchLocalPos;
     private Quaternion initialAttatchLocalRot;
-    // Start is called before the first frame update
+    // Start is called before the first frame update test
     void Start()
     {
         if (!attachTransform)
