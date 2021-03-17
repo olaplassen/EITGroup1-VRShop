@@ -7,7 +7,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Tablet
+namespace Tablet2
 {
     /// <summary>
     /// This class is the main class for the tablet
@@ -27,8 +27,11 @@ namespace Tablet
 
         private GameObject[] yrkesTitles;
         public static TabletManager tabletManager;
+        public Text canvastext;
+        public Text canvastitle;
 
-
+        private String handlelistetext;
+        private String handlekurvtext;
         Camera cam;
 
         /// <summary>
@@ -36,16 +39,16 @@ namespace Tablet
         /// </summary>
         private void Start()
         {
+            handlekurvtext = "";
+            handlelistetext = "Fisk\nMelk\nPizza";
             if (tabletManager == null)
                 tabletManager = this;
             else if (tabletManager != this)
                 Destroy(gameObject);
-
             if (!Camera.main)
                 cam = GameObject.FindObjectOfType<Camera>();
             else
                 cam = Camera.main;
-
             Debug.Log("All managers can be found under Tablet -> Managers");
             //set Camera.main as all canvases camera in world space if it's not assigned yet
             if (cam)
@@ -65,6 +68,21 @@ namespace Tablet
             ShowCanvas(helpPageCanvas);
         }
 
+        private void Update()
+        {
+            int current = tabletPos.getCurrentTablet();
+            if (current == 1)
+            {
+                canvastext.text = handlelistetext;
+                canvastitle.text = "Handleliste";
+            }
+            else if (current == 2)
+            {
+                canvastext.text = handlekurvtext;
+                canvastitle.text = "Handlekurv";
+            }
+
+        }
 
         /// <summary>
         /// Open the tablet
@@ -103,7 +121,13 @@ namespace Tablet
             OpenTablet(false);
         }
 
-
+        public void pickUpItem(String itemtext)
+        {
+            
+                handlekurvtext += itemtext + "\n";
+            
+            
+        }
 
     
     }

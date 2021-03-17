@@ -21,7 +21,9 @@ public class TabletPosition : MonoBehaviour
     Vector3 originalAngles;
 
     private bool tabletIsOpened;
-    public XRNode inputSource;
+    private int currentTablet;
+    public XRNode inputSource1;
+    public XRNode inputSource2;
 
     Camera cam;
 
@@ -33,6 +35,17 @@ public class TabletPosition : MonoBehaviour
     {
         tabletIsOpened = status;
     }
+
+    public void setCurrentTablet(int current)
+    {
+        currentTablet = current;
+    }
+
+    public int getCurrentTablet()
+    {
+        return currentTablet;
+    }
+
 
 
     /// <summary>
@@ -57,7 +70,8 @@ public class TabletPosition : MonoBehaviour
     {
         var inputDevices = new List<UnityEngine.XR.InputDevice>();
         UnityEngine.XR.InputDevices.GetDevices(inputDevices);
-        InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
+        InputDevice device1 = InputDevices.GetDeviceAtXRNode(inputSource1);
+        InputDevice device2 = InputDevices.GetDeviceAtXRNode(inputSource2);
         if (tabletIsOpened)
         {
             transform.position = (cam.transform.position  + new Vector3(0,-0.05f,0)) + cam.transform.forward * DistanceFromPlayer;
@@ -66,24 +80,38 @@ public class TabletPosition : MonoBehaviour
             
                 bool triggerValue;
 
-                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.secondaryButton, out triggerValue) && triggerValue)
+                if ((device1.TryGetFeatureValue(UnityEngine.XR.CommonUsages.secondaryButton, out triggerValue) && triggerValue) || (device2.TryGetFeatureValue(UnityEngine.XR.CommonUsages.secondaryButton, out triggerValue) && triggerValue))
                 {
                     SelectTablet(false);
                 }
-            
+                if(currentTablet == 1 && (device2.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue))
+                {
+                    setCurrentTablet(2);
+                }
+                if (currentTablet == 2 && (device1.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue))
+                {
+                    setCurrentTablet(1);
+                }
+
         }
         else
         {
-            transform.position = cam.transform.position - new Vector3(0.5f, 1f, 0);
+            transform.position = cam.transform.position - new Vector3(0.5f, 2f, 0);
             transform.rotation = Quaternion.Euler(0, 180, 90);
 
             
                 bool triggerValue;
-                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue)
+                if (device1.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue)
                 {
                     SelectTablet(true);
+                    setCurrentTablet(1);
                 }
-            
+                if (device2.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue)
+                {
+                    SelectTablet(true);
+                    setCurrentTablet(2);
+                }
+
 
         }
 
