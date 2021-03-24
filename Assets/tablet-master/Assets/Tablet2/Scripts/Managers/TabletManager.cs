@@ -4,6 +4,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,7 +30,8 @@ namespace Tablet2
         public static TabletManager tabletManager;
         public Text canvastext;
         public Text canvastitle;
-
+        public Material tabletMat;
+        public Image headerImage;
         private String handlelistetext;
         private String handlekurvtext;
         Camera cam;
@@ -75,11 +77,44 @@ namespace Tablet2
             {
                 canvastext.text = handlelistetext;
                 canvastitle.text = "Handleliste";
+                tabletMat.SetColor("_BaseColor", Color.red);
+                headerImage.GetComponent<Image>().color = new Color32(250, 91, 5, 100);
             }
             else if (current == 2)
             {
                 canvastext.text = handlekurvtext;
                 canvastitle.text = "Handlekurv";
+                tabletMat.SetColor("_BaseColor", Color.blue);
+                headerImage.GetComponent<Image>().color = new Color32(0, 80, 158, 100);
+            }
+            else if(current == 3)
+            {
+                String endtext = "";
+                List<String> forgotten = new List<String>();
+                List<String> tooMuch = new List<String>();
+                String[] handlekurv = handlekurvtext.Split('\n');
+                String[] handleliste = handlelistetext.Split('\n');
+                foreach (String item in handleliste)
+                {
+                    if (Array.IndexOf(handlekurv, item) == -1){
+                        forgotten.Add(item);
+                    }
+                }
+                foreach (String item in handlekurv)
+                {
+                    if (Array.IndexOf(handleliste, item) == -1)
+                    {
+                        tooMuch.Add(item);
+                    }
+                }
+                endtext += "You forgot: \n";
+                foreach (String item in forgotten) endtext += item + "\n";
+                endtext += "You were not supposed to get: \n";
+                foreach (String item in tooMuch) endtext += item + "\n";
+                canvastitle.text = "Kvittering";
+                tabletMat.SetColor("_BaseColor", Color.white);
+                canvastext.text = endtext;
+                headerImage.GetComponent<Image>().color = new Color32(100, 130, 130, 100);
             }
 
         }
@@ -123,8 +158,8 @@ namespace Tablet2
 
         public void pickUpItem(String itemtext)
         {
-            
-                handlekurvtext += itemtext + "\n";
+                if(!handlekurvtext.Contains(itemtext))
+                    handlekurvtext += itemtext + "\n";
             
             
         }
