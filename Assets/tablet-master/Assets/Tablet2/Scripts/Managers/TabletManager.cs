@@ -42,7 +42,7 @@ namespace Tablet2
         private void Start()
         {
             handlekurvtext = "";
-            handlelistetext = "Fisk\nMelk\nPizza";
+            handlelistetext = "Hel fisk\nMelk\nPizza mozzarella";
             if (tabletManager == null)
                 tabletManager = this;
             else if (tabletManager != this)
@@ -92,28 +92,54 @@ namespace Tablet2
                 String endtext = "";
                 List<String> forgotten = new List<String>();
                 List<String> tooMuch = new List<String>();
+                List<String> correct = new List<String>();
                 String[] handlekurv = handlekurvtext.Split('\n');
                 String[] handleliste = handlelistetext.Split('\n');
                 foreach (String item in handleliste)
                 {
-                    if (Array.IndexOf(handlekurv, item) == -1){
+                    if (Array.IndexOf(handlekurv, item) == -1 && item != ""){
                         forgotten.Add(item);
                     }
                 }
                 foreach (String item in handlekurv)
                 {
-                    if (Array.IndexOf(handleliste, item) == -1)
+                    if (Array.IndexOf(handleliste, item) == -1 && item != "")
                     {
                         tooMuch.Add(item);
                     }
+                    else if(Array.IndexOf(handleliste, item) != -1 && item != "")
+                    {
+                        correct.Add(item);
+                    }
                 }
-                endtext += "You forgot: \n";
-                foreach (String item in forgotten) endtext += item + "\n";
-                endtext += "You were not supposed to get: \n";
-                foreach (String item in tooMuch) endtext += item + "\n";
+                Int32 forgottenCount = forgotten.Count;
+                if (forgottenCount > 0)
+                {
+                    endtext += "Du glemte å kjøpe: \n";
+                    foreach (String item in forgotten) endtext += item + "\n";
+                    endtext += "\n";
+                }
+                Int32 tooMuchCount = tooMuch.Count;
+                if (tooMuchCount > 0)
+               
+                {
+                    endtext += "Du skulle ikke kjøpe: \n";
+                    foreach (String item in tooMuch) endtext += item + "\n";
+                    endtext += "\n";
+                }
+                if (forgotten.Count == 0 && tooMuch.Count == 0)
+                {
+                    endtext += "Du kjøpte akkurat det du skulle kjøpe!";
+                }
+                else if(correct.Count > 0)
+                {
+                    endtext += "Du kjøpte riktig: \n";
+                    foreach (String item in correct) endtext += item + "\n";
+                }
                 canvastitle.text = "Kvittering";
                 tabletMat.SetColor("_BaseColor", Color.white);
                 canvastext.text = endtext;
+                canvastext.lineSpacing = 1;
                 headerImage.GetComponent<Image>().color = new Color32(100, 130, 130, 100);
             }
 
